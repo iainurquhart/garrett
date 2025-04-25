@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garrett's Disco</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .disco-ball {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at 30% 30%, #fff, #000);
+            border-radius: 50%;
+            animation: spin 4s linear infinite;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+        }
+
+        .name {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 10px #fff,
+                         0 0 20px #fff,
+                         0 0 30px #ff00ff,
+                         0 0 40px #ff00ff,
+                         0 0 50px #ff00ff;
+            letter-spacing: 2px;
+            animation: rainbow 2s linear infinite, bounce 1s ease infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        .spotlight {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%);
+            animation: moveSpotlight 5s ease-in-out infinite;
+        }
+
+        .console-panel {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            border-left: 2px solid #00ff00;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            transform: translateX(100%);
+            transition: transform 0.5s ease;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .console-panel.visible {
+            transform: translateX(0);
+        }
+
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #00ff00;
+        }
+
+        .console-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .close-button {
+            background: none;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+
+        .prompt {
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .prompt::before {
+            content: "> ";
+            color: #00ff00;
+        }
+
+        .toggle-button {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes moveSpotlight {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-button" onclick="toggleConsole()">Look under the hood</button>
+    
+    <div class="disco-ball"></div>
+    <div class="spotlight"></div>
+    <div class="name">Garrett</div>
+    <div class="particles"></div>
+
+    <div class="console-panel" id="consolePanel">
+        <div class="console-header">
+            <div class="console-title">Command History</div>
+            <button class="close-button" onclick="toggleConsole()">Close</button>
+        </div>
+        <div class="prompt">add the word Garrett to this file. make it centered, vertically and horizontally. Make it beautiful.</div>
+        <div class="prompt">lets juj things up. animate garret, I want a fucking disco in here.</div>
+        <div class="prompt">in a console font, enter the prompts I've given you to generate this off to the side of the page. put it behind a "look under the hood" button to reveal all the prompts.</div>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particles = document.querySelector('.particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 3 + 's';
+            particle.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            particles.appendChild(particle);
+        }
+
+        function toggleConsole() {
+            const consolePanel = document.getElementById('consolePanel');
+            consolePanel.classList.toggle('visible');
+        }
+    </script>
+</body>
+</html>
