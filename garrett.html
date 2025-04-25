@@ -53,7 +53,7 @@
             position: fixed;
             right: 0;
             top: 0;
-            width: 400px;
+            width: min(400px, 90vw);
             height: 100vh;
             background: rgba(0, 0, 0, 0.9);
             border-left: 2px solid #00ff00;
@@ -64,6 +64,7 @@
             transition: transform 0.5s ease;
             overflow-y: auto;
             z-index: 1000;
+            box-sizing: border-box;
         }
 
         .console-panel.visible {
@@ -77,10 +78,12 @@
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 1px solid #00ff00;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .console-title {
-            font-size: 1.2em;
+            font-size: clamp(1em, 2vw, 1.2em);
             font-weight: bold;
         }
 
@@ -91,12 +94,15 @@
             padding: 5px 10px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
+            white-space: nowrap;
         }
 
         .prompt {
             margin-bottom: 15px;
             white-space: pre-wrap;
             line-height: 1.5;
+            word-break: break-word;
+            font-size: clamp(0.8em, 1.5vw, 1em);
         }
 
         .prompt::before {
@@ -111,12 +117,14 @@
             background: #00ff00;
             color: #000;
             border: none;
-            padding: 10px 20px;
+            padding: clamp(8px, 2vw, 10px) clamp(15px, 3vw, 20px);
             font-family: 'Courier New', monospace;
             font-weight: bold;
             cursor: pointer;
             z-index: 1001;
             box-shadow: 0 0 10px #00ff00;
+            font-size: clamp(0.8em, 1.5vw, 1em);
+            white-space: nowrap;
         }
 
         @keyframes spin {
