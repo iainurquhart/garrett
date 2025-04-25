@@ -53,7 +53,7 @@
             position: fixed;
             right: 0;
             top: 0;
-            width: min(400px, 90vw);
+            width: 80vw;
             height: 100vh;
             background: rgba(0, 0, 0, 0.9);
             border-left: 2px solid #00ff00;
@@ -80,11 +80,13 @@
             border-bottom: 1px solid #00ff00;
             flex-wrap: wrap;
             gap: 10px;
+            width: 100%;
         }
 
         .console-title {
-            font-size: clamp(1em, 2vw, 1.2em);
+            font-size: clamp(0.9em, 2vw, 1.1em);
             font-weight: bold;
+            max-width: 100%;
         }
 
         .close-button {
@@ -95,6 +97,7 @@
             cursor: pointer;
             font-family: 'Courier New', monospace;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .prompt {
@@ -102,12 +105,17 @@
             white-space: pre-wrap;
             line-height: 1.5;
             word-break: break-word;
-            font-size: clamp(0.8em, 1.5vw, 1em);
+            font-size: clamp(0.8em, 1.5vw, 0.9em);
+            width: 100%;
+            overflow-wrap: break-word;
+            padding-right: 5px;
         }
 
         .prompt::before {
             content: "> ";
             color: #00ff00;
+            float: left;
+            margin-right: 5px;
         }
 
         .toggle-button {
